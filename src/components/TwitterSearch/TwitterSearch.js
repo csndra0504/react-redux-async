@@ -6,7 +6,7 @@ class TwitterSearch extends Component {
         <div>
           <form>
             <input type="text"/>
-            <button type="submit">Search</button>
+            <button type="submit">Search (Coming Soon!)</button>
           </form>
         </div>
       );
