@@ -1,20 +1,48 @@
-// import { combineReducers } from 'redux';
+import { combineReducers } from 'redux';
+import {
+  REQUEST_TWEETS,
+  RECEIVE_TWEETS
+} from '../actions/index.js'
 
-const reducer = (state = {}, action) => {
+const query = (state = 'reactjs', action) => {
   switch (action.type) {
-    case 'ACTION':
+    case 'SEARCH':
+      return action.query
+    default:
+      return state
+  }
+}
+
+const tweets = (state = {
+  isFetching: false,
+  didInvalidate: false,
+  items: []
+}, action) => {
+  switch (action.type) {
+    case REQUEST_TWEETS:
+      console.log('requesting')
       return {
         ...state,
-        isUpdated: true
+        isFetching: true,
+        didInvalidate: false
+      }
+    case RECEIVE_TWEETS:
+      console.log('receiving', action.posts)
+      return {
+        ...state,
+        isFetching: false,
+        didInvalidate: false,
+        items: action.posts,
+        lastUpdated: action.receivedAt
       }
     default:
       return state
   }
 }
 
-// const rootReducer = combineReducers({
-//   reducer.
-//   ...
-// })
+const rootReducer = combineReducers({
+  query,
+  tweets
+})
 
-export default reducer;
+export default rootReducer;
